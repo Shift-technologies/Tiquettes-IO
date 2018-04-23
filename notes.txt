@@ -2,7 +2,48 @@ Technology Stack
 
 Web, iOS, Android
 ------------------------------------------
-Front-End: React Native;
-Back-End: Node.js (Express Framework);
-Database: MongoDB;
+Front-End: React Native
+Back-End: Node.js (Express Framework)
+Database: MongoDB
 Server: Digital Ocean
+
+Tools:
+IDE: Atom
+Github
+Trello
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+LOGINS
+--------------------------------------------------------------------------------------------------------------------------------------------
+GITHUB - shift.techng@gmail.com
+shift.techNG2579
+
+FACEBOOK - shift.techng@gmail.com
+shifttechNG2576
+
+WECHAT - shift.techng@gmail.com
+shift.techNG3568
+
+TWITTER - shift.techng@gmail.com
+shift.techNG2648
+
+INSTAGRAM - shift.techng@gmail.com
+shift.techNG5946
+
+CLOUDFLARE - shift.techng@gmail.com
+shift.techNG4556
+
+CODEPEN - shift.techng@gmail.com
+shift.techNG4796
+codepen.io/shift-tech
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Emails
+--------------------------------------------------------------------------------------------------------------------------------------------
+admin@shift-technologies.io - &u;TVnih)gB@
+info@shift-technologies.io - 5lX8?Q@1Xt&)
+careers@shift-technologies.io - gX;.J}wN[n&9
+kenneth.o@shift-technologies.io - H~ImGFEN;IRc
+umar.alli@shift-technologies.io - F&P(inRh9O^G
+oshoba.telo@shift-technlogies.io - puO!HC%?xB};
+gabriel@shift-technologies.io -  +KB7g[nl,-o2
