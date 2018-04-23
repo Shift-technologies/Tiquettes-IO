@@ -1,0 +1,8 @@
+Technology Stack
+
+Web, iOS, Android
+------------------------------------------
+Front-End: React Native;
+Back-End: Node.js (Express Framework);
+Database: MongoDB;
+Server: Digital Ocean
