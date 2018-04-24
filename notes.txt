@@ -48,3 +48,30 @@ kenneth.o@shift-technologies.io - H~ImGFEN;IRc
 umar.alli@shift-technologies.io - F&P(inRh9O^G
 oshoba.telo@shift-technlogies.io - puO!HC%?xB};
 gabriel@shift-technologies.io -  +KB7g[nl,-o2
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Tiquettes IO - Pages needed
+--------------------------------------------------------------------------------------------------------------------------------------------
+Splashscreen
+Onboarding screen - 3Pages - last page should have a GET STARTED button - will show on first launch of  the application
+Choose city - will only prompt if  was not chosen on first launch otherwise from Splashscreen to the mainscreen
+Choose interest - will show after the choose city
+Login | Register | Forget password | Verification
+Forgot password page would include phone Verification which would send a code to the users phone, and which after applied would send the user to the an update password form/Page
+
+Main dashboard nav
+Filter for events will be based on location and type of event (eg. workout, club)
+Events will be displayed by map and grid
+search button
+
+TIckets nav
+tickets open within the ticket navigation
+
+favorite page
+
+Profile nav
+edit profile page
+manage events
+settings icon should be at top right of the profile
+app version at the bottom
+report a problem
