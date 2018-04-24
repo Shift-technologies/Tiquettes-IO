@@ -1,0 +1,32 @@
+{
+  "name": "tiquettes-io",
+  "version": "1.0.0",
+  "description": "Make organizing an event feel like doing nothing, cause you're doing nothing, we've already done it for you",
+  "main": "index.js",
+  "scripts": {
+    "test": "console.log('5');"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shift-technologies/Tiquettes-IO.git"
+  },
+  "keywords": [
+    "ticketing",
+    "system",
+    "event",
+    "organizing",
+    "organize",
+    "event",
+    "planning",
+    "event",
+    "brite",
+    "event",
+    "manager"
+  ],
+  "author": "Shift Technologies",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shift-technologies/Tiquettes-IO/issues"
+  },
+  "homepage": "https://github.com/Shift-technologies/Tiquettes-IO#readme"
+}
