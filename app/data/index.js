@@ -15,7 +15,7 @@ module.exports = function () {
         .forEach(file => {
             // the next line is so that the properties can be e.g. Cool and not cool-model.js
             let modelName = file.charAt(0).toUpperCase() + file.substr(1, file.length - modelFileNamesPattern.length - 1);
-            models[modelName] = require(path.join(__dirname, '../models', file));
+            models[modelName] = require(path.join(__dirname, './models', file));
         });
 
     let data = {};
