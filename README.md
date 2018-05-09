@@ -17,5 +17,5 @@
 ### When a user subscribes to an event, the event is automatically added to his calendar.
 
 
-###Technology stack
-###Front-End: React Native Back-End: Node.js (Express Framework) Database: MongoDB Server: Digital Ocean
+### Technology stack
+### Front-End: React Native Back-End: Node.js (Express Framework) Database: MongoDB Server: Digital Ocean
