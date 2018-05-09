@@ -3,9 +3,9 @@
 const FacebookStrategy = require('passport-facebook');
 
 const FACEBOOK = {
-    FACEBOOK_APP_ID: '',
-    FACEBOOK_APP_SECRET: '',
-    callbackURL: ''
+    FACEBOOK_APP_ID: '1943447662333066',
+    FACEBOOK_APP_SECRET: '9c8b667e236f74e0414f1b9581b68675',
+    callbackURL: 'https://immense-dawn-19282.herokuapp.com/auth/facebook/callback'
 };
 
 module.exports = function (passport, data) {

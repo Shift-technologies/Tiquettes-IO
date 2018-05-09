@@ -3,9 +3,9 @@
 const GooglePlusStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const GOOGLEPLUS = {
-    GOOGLE_APP_ID: '',
-    GOOGLE_APP_SECRET: '',
-    callbackURL: ''
+    GOOGLE_APP_ID: '42643689062-kmm89boegmnl0bhe4td16fdctlgbl77b.apps.googleusercontent.com',
+    GOOGLE_APP_SECRET: 'n_KJIx9wlxyDwlFPIiGt837x',
+    callbackURL: 'https://immense-dawn-19282.herokuapp.com/auth/google/callback'
 };
 
 module.exports = function (passport, data) {
