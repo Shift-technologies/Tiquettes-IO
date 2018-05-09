@@ -1,32 +1,50 @@
 {
-  "name": "tiquettes-io",
+  "name": "tiquettes-io-app",
   "version": "1.0.0",
-  "description": "Make organizing an event feel like doing nothing, cause you're doing nothing, we've already done it for you",
+  "description": "Shift Technologies",
   "main": "index.js",
   "scripts": {
-    "test": "console.log('5');"
+    "start": "node app/app.js",
+    "test": "./node_modules/.bin/mocha app/tests/**/*.js",
+    "test-browser": "start chrome http://127.0.0.1:8080/app/tests/index.html && http-server ./"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Shift-technologies/Tiquettes-IO.git"
   },
-  "keywords": [
-    "ticketing",
-    "system",
-    "event",
-    "organizing",
-    "organize",
-    "event",
-    "planning",
-    "event",
-    "brite",
-    "event",
-    "manager"
-  ],
-  "author": "Shift Technologies",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Shift-technologies/Tiquettes-IO/issues"
   },
-  "homepage": "https://github.com/Shift-technologies/Tiquettes-IO#readme"
+  "homepage": "https://github.com/Shift-technologies/Tiquettes-IO#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "formidable": "^1.2.1",
+    "fs-extra": "^6.0.0",
+    "jquery-ui": "^1.12.1",
+    "mongodb": "^3.0.7",
+    "mongoose": "^5.0.17",
+    "mongoose-unique-validator": "^2.0.1",
+    "nodemailer": "^4.6.4",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
+    "passport-google-plus": "^0.5.1",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "eslint": "^4.19.1",
+    "http-server": "^0.11.1",
+    "mocha": "^5.1.1",
+    "sinon": "^5.0.7"
+  }
 }
