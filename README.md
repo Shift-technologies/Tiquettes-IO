@@ -3,8 +3,6 @@
 
 <h1 align="center">Tiquettes-IO</h1>
 
-[Description](https://github.com/Shift-technologies/Tiquettes-IO#readme/README.md)
-
 ### Team Members
 | Name                  | Academy Username 	|
 |-----------------------|-------------------|
