@@ -3,9 +3,9 @@
 const TwitterStrategy = require('passport-twitter').Strategy;
 
 const TWITTER = {
-    TWITTER_APP_ID: 'IYE49wNa4MZgmMvApw0Oulj30',
-    TWITTER_APP_SECRET: 'gzazRHBZPtIaCBkqWnQZYwb5fCPTKnaDSYu29t02mG3HItRVcq',
-    callbackURL: 'https://events-management-system.herokuapp.com/auth/twitter/callback'
+    TWITTER_APP_ID: '',
+    TWITTER_APP_SECRET: '',
+    callbackURL: ''
 };
 module.exports = function (passport, data) {
 
