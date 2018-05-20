@@ -5,9 +5,9 @@ module.exports = function (models) {
 
     return {
         createEventType(name) {
-            let eventType = new EventType({
+            let eventType = new EventType(
                 name
-            });
+            );
 
             return new Promise((resolve, reject) => {
                 eventType.save((error) => {

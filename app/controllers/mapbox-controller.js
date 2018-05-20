@@ -18,18 +18,25 @@ module.exports = function (stripe) {
 
 
         getMap(req, res) {
-            client.geocodeForward(
-                'Chester, NJ'
-            ).then((res) => {
-                //retrieve charge
-                res.send(res);
-            }).catch((err) => {
-                // Deal with an error
-                res.status(400)
-                    .send(JSON.stringify({
-                        validationErrors: helpers.errorHelper(err)
-                    }));
-            });
+
+            if (!req.isAuthenticated()) {
+                res.sendStatus(401);
+            } else {
+
+                client.geocodeForward(
+                    'Chester, NJ'
+                ).then((res) => {
+                    //retrieve charge
+                    res.send(res);
+                }).catch((err) => {
+                    // Deal with an error
+                    res.status(400)
+                        .send(JSON.stringify({
+                            validationErrors: helpers.errorHelper(err)
+                        }));
+                });
+
+            }
         },
 
 

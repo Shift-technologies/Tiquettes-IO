@@ -3,7 +3,9 @@
 module.exports = {
     loadType(Type, name) {
         return new Promise((resolve, reject) => {
-            Type.findOne({ name }, (err, dbType) => {
+            Type.findOne({
+                name
+            }, (err, dbType) => {
                 let type = dbType;
 
                 if (err) {
@@ -23,7 +25,10 @@ module.exports = {
             let current = events[i],
                 typeName = current.eventType.name;
             if (!eventsByTypes[typeName]) {
-                eventsByTypes[typeName] = { name: typeName, events: [] };
+                eventsByTypes[typeName] = {
+                    name: typeName,
+                    events: []
+                };
             }
             eventsByTypes[typeName].events.push(current);
         }

@@ -6,6 +6,8 @@ module.exports = function (app, express, data) {
 
 
     eventTypeRouter
+        .post('/register', eventTypeController.createEventType)
+        .get('/', eventTypeController.getAllEventTypes)
 
 
 
@@ -24,5 +26,5 @@ module.exports = function (app, express, data) {
 
 
 
-    app.use('/events/type', eventTypeRouter);
+    app.use('/eventTypes', eventTypeRouter);
 };

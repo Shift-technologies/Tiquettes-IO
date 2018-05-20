@@ -11,3 +11,5 @@ module.exports = {
     port: process.env.PORT || 3003,
     sessionSecret: process.env.SESSION_SECRET || '[session_secret]'
 };
+
+//mongodb://iamtelo:recasan098@ds119660.mlab.com:19660/heroku_7qhhv26s

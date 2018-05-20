@@ -7,16 +7,13 @@ const helpers = require('../helpers'),
 module.exports = function (data) {
     return {
 
-
-        createEventType(req, res) {
-            const eventType = req.body;
+        createCity(req, res) {
+            const city = req.body;
 
             return Promise.resolve()
                 .then(() => {
-                    return data.createEventType(eventType)
-                        .then(eventType => {
-                            res.send(eventType);
-                        });
+                    return data.createCity(city);
+                    res.send(city);
                 })
                 .catch(error => {
                     res.sendStatus(400)
@@ -26,16 +23,17 @@ module.exports = function (data) {
                 });
         },
 
-        getAllEventTypes(req, res) {
+
+        getAllCities(req, res) {
             if (!req.isAuthenticated()) {
                 res.sendStatus(401);
             } else {
 
                 return Promise.resolve()
                     .then(() => {
-                        return data.getAllEventTypes()
-                            .then(eventTypes => {
-                                res.send(eventTypes);
+                        return data.getAllCities()
+                            .then(cities => {
+                                res.send(cities);
                             });
                     });
             }
@@ -43,6 +41,19 @@ module.exports = function (data) {
         },
 
 
+        getCityById(req, res) {
+            if (!req.isAuthenticated()) {
+                res.sendStatus(401);
+            } else {
+                return Promise.resolve()
+                    .then(() => {
+                        return data.getCityById(req.params.id)
+                            .then(city => {
+                                res.send(city);
+                            });
+                    });
+            }
+        },
 
 
 

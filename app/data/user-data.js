@@ -19,7 +19,9 @@ module.exports = function (models) {
         },
         getUserById(id) {
             return new Promise((resolve, reject) => {
-                User.findOne({ _id: id }, (err, user) => {
+                User.findOne({
+                    _id: id
+                }, (err, user) => {
                     if (err) {
                         return reject(err);
                     }
@@ -34,7 +36,9 @@ module.exports = function (models) {
         },
         getUserByFacebookId(id) {
             return new Promise((resolve, reject) => {
-                User.findOne({ 'socialLogins.facebook.id': id }, (err, user) => {
+                User.findOne({
+                    'socialLogins.facebook.id': id
+                }, (err, user) => {
                     if (err) {
                         return reject(err);
                     }
@@ -49,7 +53,9 @@ module.exports = function (models) {
         },
         getUserByGoogleplusId(id) {
             return new Promise((resolve, reject) => {
-                User.findOne({ 'socialLogins.googlePlus.id': id }, (err, user) => {
+                User.findOne({
+                    'socialLogins.googlePlus.id': id
+                }, (err, user) => {
                     if (err) {
                         return reject(err);
                     }
@@ -64,7 +70,9 @@ module.exports = function (models) {
         },
         getUserByTwitterId(id) {
             return new Promise((resolve, reject) => {
-                User.findOne({ 'socialLogins.twitter.id': id }, (err, user) => {
+                User.findOne({
+                    'socialLogins.twitter.id': id
+                }, (err, user) => {
                     if (err) {
                         return reject(err);
                     }
@@ -79,7 +87,11 @@ module.exports = function (models) {
         },
         findUserByIdAndUpdate(id, update) {
             return new Promise((resolve, reject) => {
-                User.findOneAndUpdate({ _id: id }, update, { new: true }, (err, user) => {
+                User.findOneAndUpdate({
+                    _id: id
+                }, update, {
+                    new: true
+                }, (err, user) => {
                     if (err) {
                         return reject(err);
                     }
@@ -94,7 +106,9 @@ module.exports = function (models) {
         },
         getUserByName(name) {
             return new Promise((resolve, reject) => {
-                User.findOne({ username: name }, (err, user) => {
+                User.findOne({
+                    username: name
+                }, (err, user) => {
                     if (err) {
                         return reject(err);
                     }
@@ -109,7 +123,9 @@ module.exports = function (models) {
         },
         getUserByEmail(email) {
             return new Promise((resolve, reject) => {
-                User.findOne({ email: email }, (err, user) => {
+                User.findOne({
+                    email: email
+                }, (err, user) => {
                     if (err) {
                         return reject(err);
                     }
@@ -125,7 +141,9 @@ module.exports = function (models) {
         getUsersByNames(User, ...names) {
             return new Promise((resolve, reject) => {
                 User.find({
-                    name: { $in: names }
+                    name: {
+                        $in: names
+                    }
                 }, (err, users) => {
                     if (err) {
                         return reject(err);

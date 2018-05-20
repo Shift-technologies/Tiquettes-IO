@@ -7,20 +7,22 @@ module.exports = function (models) {
         User = models.User,
         City = models.City,
         Country = models.Country,
-        EventType = models.EventType;
+        EventType = models.EventType,
+        cities = require('states-cities-db');
 
     return {
         createEvent(eventData, user) {
             return Promise.all([
-                dataUtils.loadType(EventType, eventData.eventType),
-                dataUtils.loadType(Country, eventData.country),
-                dataUtils.loadType(City, eventData.city)
-            ])
+                    dataUtils.loadType(EventType, eventData.eventType),
+                    dataUtils.loadType(Country, eventData.country)
+                ])
                 .then(([dbEventType, dbCountry, dbCity]) => {
                     eventData.eventType = mapper.map(dbEventType, '_id', 'name');
-                    eventData.city = mapper.map(dbCity, '_id', 'name');
                     eventData.country = mapper.map(dbCountry, '_id', 'name');
-                    eventData.user = { name: user.fullName, id: user.id };
+                    eventData.user = {
+                        name: user.fullName,
+                        id: user.id
+                    };
 
                     let event = new Event(eventData);
 
@@ -44,7 +46,16 @@ module.exports = function (models) {
                 if (user) {
                     commentAuthor = user.username;
                     let commentAuthorId = user.id;
-                    this.findEventByIdAndUpdate(eventId, { $push: { comments: { text: commentText, author: commentAuthor, authorId: commentAuthorId, date: dateOfComment } } });
+                    this.findEventByIdAndUpdate(eventId, {
+                        $push: {
+                            comments: {
+                                text: commentText,
+                                author: commentAuthor,
+                                authorId: commentAuthorId,
+                                date: dateOfComment
+                            }
+                        }
+                    });
                     commentData = {
                         commentAuthor: commentAuthor,
                         dateOfComment: dateOfComment.getFullYear() + '/' + (dateOfComment.getMonth() + 1) + '/' + dateOfComment.getDate(),
@@ -59,7 +70,15 @@ module.exports = function (models) {
                     dateOfComment: dateOfComment.getFullYear() + '/' + (dateOfComment.getMonth() + 1) + '/' + dateOfComment.getDate(),
                     timeOfComment: (dateOfComment.getHours() < 10 ? '0' : '') + dateOfComment.getHours() + ':' + (dateOfComment.getMinutes() < 10 ? '0' : '') + dateOfComment.getMinutes() + 'h'
                 };
-                this.findEventByIdAndUpdate(eventId, { $push: { comments: { text: commentText, author: commentAuthor, date: dateOfComment } } });
+                this.findEventByIdAndUpdate(eventId, {
+                    $push: {
+                        comments: {
+                            text: commentText,
+                            author: commentAuthor,
+                            date: dateOfComment
+                        }
+                    }
+                });
                 return resolve(commentData);
             });
         },
@@ -70,7 +89,20 @@ module.exports = function (models) {
                         let eventName = event.name;
                         let eventStart = `${event.dateOfEvent.getFullYear()}-${(event.dateOfEvent.getMonth() + 1)}-${event.dateOfEvent.getDate()} ${event.dateOfEvent.getHours()}:${event.dateOfEvent.getMinutes()}`;
                         let eventEnd = `${event.endDateOfEvent.getFullYear()}-${(event.endDateOfEvent.getMonth() + 1)}-${event.endDateOfEvent.getDate()} ${event.endDateOfEvent.getHours()}:${event.endDateOfEvent.getMinutes()}`;
-                        User.findOneAndUpdate({ _id: userId }, { $push: { subscribedEvents: { id: eventId, text: eventName, start_date: eventStart, end_date: eventEnd } } }, { new: true }, (err, user) => {
+                        User.findOneAndUpdate({
+                            _id: userId
+                        }, {
+                            $push: {
+                                subscribedEvents: {
+                                    id: eventId,
+                                    text: eventName,
+                                    start_date: eventStart,
+                                    end_date: eventEnd
+                                }
+                            }
+                        }, {
+                            new: true
+                        }, (err, user) => {
                             if (err) {
                                 return reject(err);
                             }
@@ -91,7 +123,20 @@ module.exports = function (models) {
                         let eventName = event.name;
                         let eventStart = `${event.dateOfEvent.getFullYear()}-${(event.dateOfEvent.getMonth() + 1)}-${event.dateOfEvent.getDate()} ${event.dateOfEvent.getHours()}:${event.dateOfEvent.getMinutes()}`;
                         let eventEnd = `${event.endDateOfEvent.getFullYear()}-${(event.endDateOfEvent.getMonth() + 1)}-${event.endDateOfEvent.getDate()} ${event.endDateOfEvent.getHours()}:${event.endDateOfEvent.getMinutes()}`;
-                        User.findOneAndUpdate({ _id: userId }, { $pull: { subscribedEvents: { id: eventId, text: eventName, start_date: eventStart, end_date: eventEnd } } }, { new: true }, (err, user) => {
+                        User.findOneAndUpdate({
+                            _id: userId
+                        }, {
+                            $pull: {
+                                subscribedEvents: {
+                                    id: eventId,
+                                    text: eventName,
+                                    start_date: eventStart,
+                                    end_date: eventEnd
+                                }
+                            }
+                        }, {
+                            new: true
+                        }, (err, user) => {
                             if (err) {
                                 return reject(err);
                             }
@@ -106,7 +151,9 @@ module.exports = function (models) {
         },
         getEventById(id) {
             return new Promise((resolve, reject) => {
-                Event.findOne({ _id: id }, (err, event) => {
+                Event.findOne({
+                    _id: id
+                }, (err, event) => {
                     if (err) {
                         return reject(err);
                     }
@@ -121,7 +168,11 @@ module.exports = function (models) {
         },
         findEventByIdAndUpdate(id, update) {
             return new Promise((resolve, reject) => {
-                Event.findOneAndUpdate({ _id: id }, update, { new: true }, (err, event) => {
+                Event.findOneAndUpdate({
+                    _id: id
+                }, update, {
+                    new: true
+                }, (err, event) => {
                     if (err) {
                         return reject(err);
                     }
@@ -136,7 +187,9 @@ module.exports = function (models) {
         },
         getEventByName(name) {
             return new Promise((resolve, reject) => {
-                Event.findOne({ name: name }, (err, event) => {
+                Event.findOne({
+                    name: name
+                }, (err, event) => {
                     if (err) {
                         return reject(err);
                     }
@@ -161,7 +214,10 @@ module.exports = function (models) {
         },
         getAllApprovedEvents() {
             return new Promise((resolve, reject) => {
-                Event.find({ isApproved: true, isDeleted: false }, (err, events) => {
+                Event.find({
+                    isApproved: true,
+                    isDeleted: false
+                }, (err, events) => {
                     if (err) {
                         return reject(err);
                     }
@@ -172,7 +228,10 @@ module.exports = function (models) {
         },
         getEventsGroupedByCategories() {
             return new Promise((resolve, reject) => {
-                Event.find({ isApproved: true, isDeleted: false }, (err, events) => {
+                Event.find({
+                    isApproved: true,
+                    isDeleted: false
+                }, (err, events) => {
                     let eventsByTypes = dataUtils.groupEvents(events);
 
                     if (err) {
@@ -201,7 +260,22 @@ module.exports = function (models) {
         },
         getAllAwaitingEvents() {
             return new Promise((resolve, reject) => {
-                Event.find({ isApproved: false, isDeleted: false }, (err, events) => {
+                Event.find({
+                    isApproved: false,
+                    isDeleted: false
+                }, (err, events) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(events);
+                });
+            });
+        },
+
+        getAllEvents() {
+            return new Promise((resolve, reject) => {
+                Event.find((err, events) => {
                     if (err) {
                         return reject(err);
                     }
@@ -210,5 +284,7 @@ module.exports = function (models) {
                 });
             });
         }
+
+
     };
 };

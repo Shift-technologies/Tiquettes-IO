@@ -13,7 +13,7 @@ module.exports = function (data) {
                 }
 
                 if (!user) {
-                    res.status(400);
+                    res.sendStatus(400);
                     res.json({
                         success: false,
                         message: 'Invalid name or password!'
@@ -35,7 +35,7 @@ module.exports = function (data) {
                     if (!req.isAuthenticated()) {
                         auth(req, res, next);
                     } else {
-                        res.redirect('/home');
+                        res.sendStatus(200);
                     }
                 });
         },
@@ -54,8 +54,10 @@ module.exports = function (data) {
                     });
                 })
                 .catch(error => {
-                    res.status(400)
-                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(error) }));
+                    res.sendStatus(400)
+                        .send(JSON.stringify({
+                            validationErrors: helpers.errorHelper(error)
+                        }));
                 });
         },
 

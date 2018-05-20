@@ -94,50 +94,50 @@ module.exports = function (data) {
 
         uploadProfileAvatar(req, res) {
             return new Promise((resolve, reject) => {
-                if (!req.isAuthenticated()) {
-                    res.sendStatus(401);
-                    reject();
-                } else {
-                    let form = new formidable.IncomingForm();
-                    form.maxFieldsSize = 2 * 1024 * 1024;
+                    if (!req.isAuthenticated()) {
+                        res.sendStatus(401);
+                        reject();
+                    } else {
+                        let form = new formidable.IncomingForm();
+                        form.maxFieldsSize = 2 * 1024 * 1024;
 
-                    form.onPart = function (part) {
-                        if (!part.filename || part.filename.match(/\.(jpg|jpeg|png)$/i)) {
-                            form.on('end', function (fields, files) {
-                                if (this.openedFiles[0].size > form.maxFieldsSize) {
-                                    return reject({
-                                        name: 'ValidationError',
-                                        message: 'Maximum file size is 2MB.'
-                                    });
-                                } else {
-                                    res.sendStatus(200);
-                                }
+                        form.onPart = function (part) {
+                            if (!part.filename || part.filename.match(/\.(jpg|jpeg|png)$/i)) {
+                                form.on('end', function (fields, files) {
+                                    if (this.openedFiles[0].size > form.maxFieldsSize) {
+                                        return reject({
+                                            name: 'ValidationError',
+                                            message: 'Maximum file size is 2MB.'
+                                        });
+                                    } else {
+                                        res.sendStatus(200);
+                                    }
 
-                                let userFolder = req.user.id,
-                                    pathToUploadFolder = path.join(__dirname, '../../public/uploads/users', userFolder),
-                                    newFileName = 'avatar';
+                                    let userFolder = req.user.id,
+                                        pathToUploadFolder = path.join(__dirname, '../../public/uploads/users', userFolder),
+                                        newFileName = 'avatar';
 
-                                uploader.uploadFile(this.openedFiles[0], pathToUploadFolder, newFileName)
-                                    .then(uploadedFileName => {
-                                        resolve(uploadedFileName);
-                                    });
-                            });
-                            form.handlePart(part);
-                        } else {
-                            return reject({
-                                name: 'ValidationError',
-                                message: 'File types allowed: jpg, jpeg, png.'
-                            });
-                        }
-                    };
+                                    uploader.uploadFile(this.openedFiles[0], pathToUploadFolder, newFileName)
+                                        .then(uploadedFileName => {
+                                            resolve(uploadedFileName);
+                                        });
+                                });
+                                form.handlePart(part);
+                            } else {
+                                return reject({
+                                    name: 'ValidationError',
+                                    message: 'File types allowed: jpg, jpeg, png.'
+                                });
+                            }
+                        };
 
-                    form.on('error', function (err) {
-                        reject(err);
-                    });
+                        form.on('error', function (err) {
+                            reject(err);
+                        });
 
-                    form.parse(req);
-                }
-            })
+                        form.parse(req);
+                    }
+                })
                 .then((fileName) => {
                     if (typeof fileName !== 'string') {
                         return;

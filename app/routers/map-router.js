@@ -7,8 +7,8 @@ module.exports = function (app, express, data) {
 
     mapRouter
         .get('/countries', mapController.getAllCountries)
-        .get('/states', mapController.getAllStates)
-        .get('/cities', mapController.getAllCities)
+        .post('/states/:name', mapController.getAllStates)
+        .post('/cities/:name', mapController.getAllCities)
 
 
 

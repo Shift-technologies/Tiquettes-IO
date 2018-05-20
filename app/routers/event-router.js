@@ -6,7 +6,18 @@ module.exports = function (app, express, data) {
 
     eventRouter
         .post('/register', eventController.createEvent)
+        .post('/search', eventController.search)
+        .post('/:id/rate')
+        .post('/subscribe', eventController.subscribeOrUnsubscribeForEvent)
+        .post('/comment', eventController.commentEvent)
+        .post('/avi', eventController.uploadImage)
         .put('/:id', eventController.updateEvent)
+        .get('/specific', eventController.getSpecificEvents)
+        .get('/:id', eventController.getEventDetails)
+        .get('/', eventController.getAllEvents)
+        .get('/categories', eventController.getEvents)
+        .get('/pending', eventController.getAllEventsForApproval)
+
 
 
 

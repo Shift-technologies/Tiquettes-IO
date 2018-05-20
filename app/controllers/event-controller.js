@@ -17,13 +17,13 @@ module.exports = function (data) {
 
             return data.createEvent(req.body, req.user)
                 .then(event => {
-                    res.status(200)
+                    res.sendStatus(200)
                         .send({
                             eventId: event.id
                         });
                 })
                 .catch(err => {
-                    res.status(400)
+                    res.sendStatus(400)
                         .send(JSON.stringify({
                             validationErrors: helpers.errorHelper(err)
                         }));
@@ -33,7 +33,7 @@ module.exports = function (data) {
 
         updateEvent(req, res) {
             if (!req.isAuthenticated() || req.user.role !== 'admin') {
-                res.sendStatus(401);
+                res.sendsendStatus(401);
             } else {
                 return data.getEventById(req.body.event)
                     .then(event => {
@@ -45,10 +45,10 @@ module.exports = function (data) {
                             event.save();
                         }
 
-                        res.sendStatus(200);
+                        res.sendsendStatus(200);
                     })
                     .catch(err => {
-                        res.status(400)
+                        res.sendStatus(400)
                             .send(JSON.stringify({
                                 validationErrors: helpers.errorHelper(err)
                             }));
@@ -59,7 +59,7 @@ module.exports = function (data) {
 
         getAllEventsForApproval(req, res) {
             if (!req.isAuthenticated() || req.user.role !== 'admin') {
-                res.sendStatus(401);
+                res.sendsendStatus(401);
             } else {
                 return data.getAllAwaitingEvents()
                     .then(events => {
@@ -110,7 +110,7 @@ module.exports = function (data) {
                     });
                 })
                 .catch(err => {
-                    res.status(400)
+                    res.sendStatus(400)
                         .send(JSON.stringify({
                             validationErrors: helpers.errorHelper(err)
                         }));
@@ -144,7 +144,7 @@ module.exports = function (data) {
 
                             likesCount += 1;
 
-                            res.status(201).send({
+                            res.sendStatus(201).send({
                                 likesCount,
                                 dislikesCount
                             });
@@ -162,7 +162,7 @@ module.exports = function (data) {
 
                             dislikesCount += 1;
 
-                            res.status(201).send({
+                            res.sendStatus(201).send({
                                 likesCount,
                                 dislikesCount
                             });
@@ -170,7 +170,7 @@ module.exports = function (data) {
                     }
                 })
                 .catch(err => {
-                    res.status(404)
+                    res.sendStatus(404)
                         .redirect('/events');
                 });
         },
@@ -194,7 +194,7 @@ module.exports = function (data) {
                     }
                 }))
                 .catch(err => {
-                    res.status(400)
+                    res.sendStatus(400)
                         .send(JSON.stringify({
                             validationErrors: helpers.errorHelper(err)
                         }));
@@ -210,7 +210,7 @@ module.exports = function (data) {
                     }));
                 })
                 .catch(err => {
-                    res.status(400)
+                    res.sendStatus(400)
                         .send(JSON.stringify({
                             validationErrors: helpers.errorHelper(err)
                         }));
@@ -265,7 +265,7 @@ module.exports = function (data) {
                     }
                 })
                 .catch(err => {
-                    res.send(404)
+                    res.sendStatus(404)
                         .send(JSON.stringify({
                             validationErrors: helpers.errorHelper(err)
                         }));
@@ -280,61 +280,61 @@ module.exports = function (data) {
                 event = {};
 
             return new Promise((resolve, reject) => {
-                if (!req.isAuthenticated()) {
-                    res.sendStatus(401);
-                    reject();
-                } else {
-                    let form = new formidable.IncomingForm();
-                    form.maxFieldsSize = 2 * 1024 * 1024;
+                    if (!req.isAuthenticated()) {
+                        res.sendsendStatus(401);
+                        reject();
+                    } else {
+                        let form = new formidable.IncomingForm();
+                        form.maxFieldsSize = 2 * 1024 * 1024;
 
-                    form.onPart = function (part) {
-                        if (!part.filename || part.filename.match(/\.(jpg|jpeg|png)$/i)) {
-                            form.on('end', function (fields, files) {
-                                if (this.openedFiles[0].size > form.maxFieldsSize) {
-                                    return reject({
-                                        name: 'ValidationError',
-                                        message: 'Maximum file size is 2MB.'
-                                    });
-                                } else {
-                                    res.sendStatus(200);
-                                }
+                        form.onPart = function (part) {
+                            if (!part.filename || part.filename.match(/\.(jpg|jpeg|png)$/i)) {
+                                form.on('end', function (fields, files) {
+                                    if (this.openedFiles[0].size > form.maxFieldsSize) {
+                                        return reject({
+                                            name: 'ValidationError',
+                                            message: 'Maximum file size is 2MB.'
+                                        });
+                                    } else {
+                                        res.sendsendStatus(200);
+                                    }
 
-                                let eventFolder = eventId,
-                                    pathToUploadFolder = path.join(__dirname, '../../public/uploads/events', eventFolder);
+                                    let eventFolder = eventId,
+                                        pathToUploadFolder = path.join(__dirname, '../../public/uploads/events', eventFolder);
 
-                                data.getEventById(req.params.id)
-                                    .then((dbEvent) => {
-                                        event = dbEvent;
-                                        let newFileName = event.coverUrls.length;
-                                        return newFileName;
-                                    })
-                                    .then(newFileName => {
-                                        let uploadedFileName = uploader.uploadFile(this.openedFiles[0], pathToUploadFolder, newFileName);
-                                        return uploadedFileName;
-                                    })
-                                    .then(uploadedFileName => {
-                                        resolve(uploadedFileName);
-                                    })
-                                    .catch(err => {
-                                        res.sendStatus(404);
-                                    });
-                            });
-                            form.handlePart(part);
-                        } else {
-                            return reject({
-                                name: 'ValidationError',
-                                message: 'File types allowed: jpg, jpeg, png.'
-                            });
-                        }
-                    };
+                                    data.getEventById(req.params.id)
+                                        .then((dbEvent) => {
+                                            event = dbEvent;
+                                            let newFileName = event.coverUrls.length;
+                                            return newFileName;
+                                        })
+                                        .then(newFileName => {
+                                            let uploadedFileName = uploader.uploadFile(this.openedFiles[0], pathToUploadFolder, newFileName);
+                                            return uploadedFileName;
+                                        })
+                                        .then(uploadedFileName => {
+                                            resolve(uploadedFileName);
+                                        })
+                                        .catch(err => {
+                                            res.sendsendStatus(404);
+                                        });
+                                });
+                                form.handlePart(part);
+                            } else {
+                                return reject({
+                                    name: 'ValidationError',
+                                    message: 'File types allowed: jpg, jpeg, png.'
+                                });
+                            }
+                        };
 
-                    form.on('error', function (err) {
-                        reject(err);
-                    });
+                        form.on('error', function (err) {
+                            reject(err);
+                        });
 
-                    form.parse(req);
-                }
-            })
+                        form.parse(req);
+                    }
+                })
                 .then((fileName) => {
                     if (typeof fileName !== 'string') {
                         return;
@@ -348,7 +348,7 @@ module.exports = function (data) {
                     });
                 })
                 .catch((err) => {
-                    res.status(400)
+                    res.sendStatus(400)
                         .send(JSON.stringify({
                             validationErrors: [err.message]
                         }));
@@ -359,56 +359,96 @@ module.exports = function (data) {
 
 
 
-        subscribeOrUnsubscribeForEvent(req, res){
+        subscribeOrUnsubscribeForEvent(req, res) {
             let userHasSubscribed = false;
             let eventId = req.params.id;
 
-            if(req.isAuthenticated()) {
-                if(!userHasAlreadySubscribed(req.user.subscribedEvents, eventId)){
+            if (req.isAuthenticated()) {
+                if (!userHasAlreadySubscribed(req.user.subscribedEvents, eventId)) {
                     userHasSubscribed = true;
 
                     return data.subscribeForEvent(eventId, req.user.id)
                         .then(() => {
-                            res.status(200)
-                                .send({ userHasSubscribed });
+                            res.sendStatus(200)
+                                .send({
+                                    userHasSubscribed
+                                });
                         })
                         .catch(err => {
-                            res.status(400)
-                                .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
+                            res.sendStatus(400)
+                                .send(JSON.stringify({
+                                    validationErrors: helpers.errorHelper(err)
+                                }));
                         });
                 } else {
                     userHasSubscribed = false;
 
                     return data.unsubscribeForEvent(eventId, req.user.id)
                         .then(() => {
-                            res.status(200)
-                                .send({ userHasSubscribed });
+                            res.sendStatus(200)
+                                .send({
+                                    userHasSubscribed
+                                });
                         })
                         .catch(err => {
-                            res.status(400)
-                                .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
+                            res.sendStatus(400)
+                                .send(JSON.stringify({
+                                    validationErrors: helpers.errorHelper(err)
+                                }));
                         });
                 }
             }
         },
 
 
-        commentEvent(req, res){
+        commentEvent(req, res) {
             return data.commentEvent(req.params.id, req.body.commentText, req.user)
                 .then(commentData => {
-                    res.status(200)
-                        .send({ commentData });
+                    res.sendStatus(200)
+                        .send({
+                            commentData
+                        });
                 })
                 .catch(err => {
-                    res.status(400)
-                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
+                    res.sendStatus(400)
+                        .send(JSON.stringify({
+                            validationErrors: helpers.errorHelper(err)
+                        }));
                 });
-        }, 
+        },
 
 
 
 
+        getAllEvents(req, res) {
+            if (!req.isAuthenticated()) {
+                res.sendStatus(401);
+            } else {
 
+                return Promise.resolve()
+                    .then(() => {
+                        return data.getAllEvents()
+                            .then(events => {
+                                res.send(events);
+                            });
+                    });
+            }
+
+        },
+
+        getApprovedEvents(req, res) {
+            data.getAllApprovedEvents()
+                .then((events => {
+                    res.sendStatus(200)
+                        .send(events);
+                }))
+                .catch(err => {
+                    res.sendStatus(400)
+                        .send({
+                            validationErrors: helpers.errorHelper(err)
+                        });
+                });
+        },
 
 
 

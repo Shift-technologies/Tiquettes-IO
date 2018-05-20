@@ -26,8 +26,7 @@ helpers.errorHelper = function (err) {
 
         errors.push(util.format(
             messages['unique'],
-            fieldName)
-        );
+            fieldName));
 
         return errors;
     }
@@ -44,8 +43,7 @@ helpers.errorHelper = function (err) {
         } else {
             errors.push(util.format(
                 messages[eObj.properties.type],
-                eObj.properties.path)
-            );
+                eObj.properties.path));
         }
     });
 
